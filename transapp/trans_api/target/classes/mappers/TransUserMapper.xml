@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.trans.mapper.TransUserDao">
+
+    <select id="mobilePhoneIsExist" parameterType="String" resultType="Integer">
+        SELECT COUNT(u_uid) FROM trans_user_table WHERE u_phone = #{mobilePhone};
+    </select>
+
+    <insert id="register" parameterType="net.transapp.pojo.Bo.AccountBo">
+        INSERT INTO `trans_user_table` (
+            `u_username`,
+            `u_password`,
+            `u_phone`,
+            `u_email`,
+            `u_status`,
+            `u_createtime`,
+            `u_updatetime`
+        )
+        VALUES(
+              #{username},
+              #{password},
+              #{mobilePhone},
+              #{email},
+              '1',
+              #{uCreatetime},
+              #{uUpdatetime}
+            )
+    </insert>
+
+    <select id="findPasswordByPhone" parameterType="String" resultType="String">
+        SELECT t.u_password FROM trans_user_table t WHERE u_phone = #{mobilePhone};
+    </select>
+
+    <update id="updataPassword">
+        UPDATE trans_user_table u SET u.u_password = #{password} WHERE u.u_phone = #{phone};
+    </update>
+</mapper>

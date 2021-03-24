@@ -1,0 +1,48 @@
+spring:
+  datasource: 
+      type: com.zaxxer.hikari.HikariDataSource          # 数据源的相关配置
+      driver-class-name: com.mysql.cj.jdbc.Driver      # mysql驱动
+      url: jdbc:mysql://112.74.83.142:3306/sqltest?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
+      username: sqlTest
+      password: aBc123
+      hikari:
+        connection-timeout: 30000       # 等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLException， 默认:30秒
+        minimum-idle: 5                 # 最小连接数
+        maximum-pool-size: 20           # 最大连接数
+        auto-commit: true               # 自动提交
+        idle-timeout: 600000            # 连接超时的最大时长（毫秒），超时则被释放（retired），默认:10分钟
+        pool-name: DateSourceHikariCP     # 连接池名字
+        max-lifetime: 1800000           # 连接的生命时长（毫秒），超时而且没被使用则被释放（retired），默认:30分钟 1800000ms
+        connection-test-query: SELECT 1
+  redis:
+    host: 112.74.83.142
+    port: 6379
+    password: admin
+    database: 1
+    timeout: 5000
+    jedis:
+      pool:
+        max-active: 1000
+        max-wait: -1
+        max-idle: 10
+        min-idle: 2
+mybatis:
+  type-aliases-package: net.transapp.pojo          # 所有POJO类所在包路径 给所有pojo起了别名，使用的时候大小写都可以调用该类
+  mapper-locations: classpath*:mappers/**/*.xml      # mapper映射文件
+  configuration: 
+    map-underscore-to-camel-case: true
+    
+logging:
+  pattern:
+    #日志的格式
+    dateformat: "{yyyy-MM-dd HH:mm:ss} -%-4r  [%t]  %-5level %logger{36} - %msg%n"
+  level:
+    root: info
+
+rsa:
+  key:
+    pubKeyFile: C:\Users\ASUS\Desktop\trans\trans\final\transapp\trans_api\src\main\resources\static\id_key_rsa.pub
+    priKeyFile: C:\Users\ASUS\Desktop\trans\trans\final\transapp\trans_api\src\main\resources\static\id_key_rsa
+
+
+
